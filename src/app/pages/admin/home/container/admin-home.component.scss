@@ -1,0 +1,243 @@
+$primary-color: #0066cc;
+$secondary-color: #00bfa5;
+$background-color: #f4f6f8;
+$text-color: #333;
+$card-bg-color: #fff;
+$border-radius: 8px;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: $text-color;
+
+  .title {
+    font-size: 1.8rem;
+    color: $primary-color;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .search-bar {
+      width: 60%;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 24px;
+      outline: none;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  .add-button {
+    background-color: $primary-color;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  .etablissements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .etablissement-card {
+      display: flex;
+      align-items: center;
+      background-color: $card-bg-color;
+      padding: 15px;
+      border-radius: $border-radius;
+      box-shadow: 0 4px 8px $shadow-color;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .etablissement-logo {
+        width: 50px;
+        height: 50px;
+        margin-right: 20px;
+        border-radius: $border-radius;
+        background-color: #e0e0e0;
+      }
+
+      .etablissement-details {
+        flex: 1;
+
+        .etablissement-name {
+          font-size: 18px;
+          font-weight: bold;
+          color: $primary-color;
+        }
+
+        .etablissement-location {
+          font-size: 14px;
+          color: darken($text-color, 20%);
+        }
+      }
+
+      .etablissement-actions {
+        display: flex;
+        gap: 10px;
+
+        .edit-button,
+        .delete-button {
+          padding: 8px 16px;
+          border: none;
+          border-radius: $border-radius;
+          color: #fff;
+          cursor: pointer;
+          font-weight: bold;
+          transition: background-color 0.3s;
+        }
+
+        .edit-button {
+          background-color: $secondary-color;
+
+          &:hover {
+            background-color: darken($secondary-color, 10%);
+          }
+        }
+
+        .delete-button {
+          background-color: #e74c3c;
+
+          &:hover {
+            background-color: darken(#e74c3c, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+
+    button {
+      border: none;
+      background: none;
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      color: $text-color;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $primary-color;
+      }
+
+      &:disabled {
+        color: #ccc;
+        cursor: not-allowed;
+      }
+
+      &.active {
+        background-color: $primary-color;
+        color: #fff;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  /* Styling for the form to add or edit an établissement */
+  .etablissement-form {
+    background-color: $background-color;
+    padding: 20px;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px $shadow-color;
+    margin-top: 20px;
+
+    h3 {
+      font-size: 20px;
+      color: $primary-color;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+
+      label {
+        font-size: 14px;
+        color: darken($text-color, 20%);
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+
+      .form-input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: $border-radius;
+        outline: none;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: $primary-color;
+        }
+      }
+    }
+
+    .form-buttons {
+      display: flex;
+      gap: 10px;
+
+      .save-button,
+      .cancel-button {
+        padding: 10px 20px;
+        font-size: 14px;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        font-weight: bold;
+        color: #fff;
+        transition: background-color 0.3s;
+      }
+
+      .save-button {
+        background-color: $secondary-color;
+
+        &:hover {
+          background-color: darken($secondary-color, 10%);
+        }
+      }
+
+      .cancel-button {
+        background-color: #e74c3c;
+
+        &:hover {
+          background-color: darken(#e74c3c, 10%);
+        }
+      }
+    }
+  }
+}

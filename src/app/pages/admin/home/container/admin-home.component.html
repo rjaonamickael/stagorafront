@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div class="container">
+  <h2 class="title">Gestion des établissements</h2>
+
+  <div class="search-bar-container">
+    <input
+      type="text"
+      placeholder="Rechercher un établissement"
+      class="search-bar"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()" />
+  </div>
+
+  <button class="add-button" (click)="addEtablissement()">Ajouter un Établissement</button>
+
+  <div *ngIf="displayedEtablissements.length > 0; else noEtablissements">
+    <div class="etablissements-list">
+      <div *ngFor="let etablissement of displayedEtablissements" class="etablissement-card">
+        <img [src]="etablissement.lienLogo || 'default-logo.png'" alt="Logo de l'établissement" class="etablissement-logo" />
+        <div class="etablissement-details">
+          <h3 class="etablissement-name">{{ etablissement.nomEtablissement }}</h3>
+          <p class="etablissement-location">{{ etablissement.ville }}, {{ etablissement.province }}</p>
+        </div>
+        <div class="etablissement-actions">
+          <button class="edit-button" (click)="editEtablissement(etablissement)">Modifier</button>
+          <button class="delete-button" (click)="deleteEtablissement(etablissement.id!)">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noEtablissements>
+    <p>Aucun établissement disponible pour le moment.</p>
+  </ng-template>
+
+  <div class="etablissement-form" *ngIf="selectedEtablissement">
+    <h3 *ngIf="selectedEtablissement.id">Modifier l’établissement</h3>
+    <h3 *ngIf="!selectedEtablissement.id">Ajouter un nouvel établissement</h3>
+
+    <div class="form-group">
+      <label>Nom de l’établissement:</label>
+      <input [(ngModel)]="selectedEtablissement.nomEtablissement" class="form-input" />
+    </div>
+
+    <div class="form-group">
+      <label>Ville:</label>
+      <input [(ngModel)]="selectedEtablissement.ville" class="form-input" />
+    </div>
+
+    <div class="form-group">
+      <label>Province:</label>
+      <input [(ngModel)]="selectedEtablissement.province" class="form-input" />
+    </div>
+
+    <div class="form-group">
+      <label>Lien du logo:</label>
+      <input [(ngModel)]="selectedEtablissement.lienLogo" class="form-input" />
+    </div>
+
+    <div class="form-buttons">
+      <button (click)="saveEtablissement()" class="save-button">Enregistrer</button>
+      <button (click)="selectedEtablissement = null" class="cancel-button">Annuler</button>
+    </div>
+  </div>
+
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+    <ng-container *ngFor="let page of totalPagesArray">
+      <button (click)="goToPage(page)" [class.active]="page === currentPage">{{ page }}</button>
+    </ng-container>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
+  </div>
+</div>
