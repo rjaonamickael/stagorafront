@@ -1,0 +1,5 @@
+<!-- src/app/pages/admin/home/etablissement-list/etablissement-list.component.html -->
+<div *ngFor="let etablissement of etablissements" class="etablissement-card">
+  <img [src]="etablissement.logoUrl" alt="{{ etablissement.nom }}">
+  <h3>{{ etablissement.nom }}</h3>
+</div>

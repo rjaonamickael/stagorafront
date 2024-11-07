@@ -1,0 +1,3 @@
+<ul>
+  <li *ngFor="let etablissement of etablissements">{{ etablissement.nom }}</li>
+</ul>
