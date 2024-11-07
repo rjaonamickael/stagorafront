@@ -18,7 +18,7 @@ interface Activity {
 export class DashboardComponent implements OnInit, OnDestroy {
   etablissements: Etablissement[] = [];
   activities: Activity[] = [];
-  selectedEtablissement: Etablissement = { nomEtablissement: '', ville: '', province: '', lienLogo: '' };
+  selectedEtablissement: Etablissement = { nom: '', ville: '', province: '', logo: '' };
   isFormVisible = false;
   showAllEstablishments = false; // Flag to control "Voir tout" functionality
   private destroy$ = new Subject<void>();
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   showFormForNewEtablissement(): void {
-    this.selectedEtablissement = { nomEtablissement: '', ville: '', province: '', lienLogo: '' };
+    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: '' };
     this.isFormVisible = true;
   }
 
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           (updated) => {
             const index = this.etablissements.findIndex(e => e.id === updated.id);
             if (index !== -1) this.etablissements[index] = updated;
-            this.logActivity('Mise à jour des informations', updated.nomEtablissement || '');
+            this.logActivity('Mise à jour des informations', updated.nom || '');
             this.cancel();
           },
           (error) => console.error("Erreur lors de la modification de l'établissement:", error)
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.etablissementService.addEtablissement(this.selectedEtablissement).subscribe(
           (newEtablissement) => {
             this.etablissements.push(newEtablissement);
-            this.logActivity('Nouvel établissement ajouté', newEtablissement.nomEtablissement || '');
+            this.logActivity('Nouvel établissement ajouté', newEtablissement.nom || '');
             this.cancel();
           },
           (error) => console.error("Erreur lors de l’ajout de l’établissement:", error)
@@ -87,14 +87,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.etablissementService.deleteEtablissement(id).subscribe(
       () => {
         this.etablissements = this.etablissements.filter(e => e.id !== id);
-        this.logActivity('Établissement supprimé', etablissement?.nomEtablissement || '');
+        this.logActivity('Établissement supprimé', etablissement?.nom || '');
       },
       (error) => console.error("Erreur lors de la suppression de l'établissement:", error)
     );
   }
 
   cancel(): void {
-    this.selectedEtablissement = { nomEtablissement: '', ville: '', province: '', lienLogo: '' };
+    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: '' };
     this.isFormVisible = false;
   }
 

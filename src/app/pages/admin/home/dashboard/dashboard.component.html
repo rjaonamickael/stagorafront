@@ -21,7 +21,7 @@
 
       <label>
         Nom de l'établissement:
-        <input type="text" [(ngModel)]="selectedEtablissement.nomEtablissement" />
+        <input type="text" [(ngModel)]="selectedEtablissement.nom" />
       </label>
       <label>
         Ville:
@@ -33,7 +33,7 @@
       </label>
       <label>
         Lien du logo:
-        <input type="text" [(ngModel)]="selectedEtablissement.lienLogo" />
+        <input type="text" [(ngModel)]="selectedEtablissement.nom" />
       </label>
       <button (click)="saveEtablissement()">Enregistrer</button>
       <button (click)="cancel()">Annuler</button>
@@ -43,13 +43,13 @@
     <div *ngIf="etablissements.length > 0; else noData" class="etablissements-list">
       <div *ngFor="let etablissement of (showAllEstablishments ? etablissements : etablissements | slice:0:3)" class="etablissement-card">
         <img
-          [src]="etablissement.lienLogo || 'assets/logo.jpg'"
+          [src]="etablissement.logo || 'assets/logo.jpg'"
           (error)="onImageError($event)"
-          alt="{{ etablissement.nomEtablissement }}"
+          alt="{{ etablissement.nom }}"
           class="etablissement-logo"
         />
         <div class="etablissement-details">
-          <h3>{{ etablissement.nomEtablissement }}</h3>
+          <h3>{{ etablissement.nom }}</h3>
           <p class="location">{{ etablissement.ville }}, {{ etablissement.province }}</p>
           <button (click)="editEtablissement(etablissement)" class="edit-button">Modifier</button>
           <button *ngIf="etablissement.id !== undefined" (click)="deleteEtablissement(etablissement.id)" class="delete-button">

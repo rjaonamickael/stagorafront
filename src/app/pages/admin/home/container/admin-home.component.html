@@ -16,9 +16,9 @@
   <div *ngIf="displayedEtablissements.length > 0; else noEtablissements">
     <div class="etablissements-list">
       <div *ngFor="let etablissement of displayedEtablissements" class="etablissement-card">
-        <img [src]="etablissement.lienLogo || 'default-logo.png'" alt="Logo de l'établissement" class="etablissement-logo" />
+        <img [src]="etablissement.logo || 'default-logo.png'" alt="Logo de l'établissement" class="etablissement-logo" />
         <div class="etablissement-details">
-          <h3 class="etablissement-name">{{ etablissement.nomEtablissement }}</h3>
+          <h3 class="etablissement-name">{{ etablissement.nom }}</h3>
           <p class="etablissement-location">{{ etablissement.ville }}, {{ etablissement.province }}</p>
         </div>
         <div class="etablissement-actions">
@@ -39,7 +39,7 @@
 
     <div class="form-group">
       <label>Nom de l’établissement:</label>
-      <input [(ngModel)]="selectedEtablissement.nomEtablissement" class="form-input" />
+      <input [(ngModel)]="selectedEtablissement.nom" class="form-input" />
     </div>
 
     <div class="form-group">
@@ -54,7 +54,7 @@
 
     <div class="form-group">
       <label>Lien du logo:</label>
-      <input [(ngModel)]="selectedEtablissement.lienLogo" class="form-input" />
+      <input [(ngModel)]="selectedEtablissement.logo" class="form-input" />
     </div>
 
     <div class="form-buttons">

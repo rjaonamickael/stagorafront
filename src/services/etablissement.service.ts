@@ -42,7 +42,7 @@ export class EtablissementService {
       tap(newEtablissement => {
         const currentEtablissements = this.etablissementsSubject.value;
         this.etablissementsSubject.next([...currentEtablissements, newEtablissement]);
-        this.emitActivity('Nouvel établissement ajouté', newEtablissement.nomEtablissement);
+        this.emitActivity('Nouvel établissement ajouté', newEtablissement.nom);
       }),
       catchError(this.handleError)
     );
@@ -55,7 +55,7 @@ export class EtablissementService {
           e.id === updatedEtablissement.id ? updatedEtablissement : e
         );
         this.etablissementsSubject.next(currentEtablissements);
-        this.emitActivity('Mise à jour des informations', updatedEtablissement.nomEtablissement);
+        this.emitActivity('Mise à jour des informations', updatedEtablissement.nom);
       }),
       catchError(this.handleError)
     );

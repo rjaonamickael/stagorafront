@@ -57,7 +57,7 @@ export class AdminHomeComponent implements OnInit {
 
   onSearch(): void {
     this.filteredEtablissements = this.etablissements.filter(etablissement =>
-      etablissement.nomEtablissement ? etablissement.nomEtablissement.toLowerCase().includes(this.searchTerm.toLowerCase()) : false
+      etablissement.nom ? etablissement.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) : false
     );
     this.calculateTotalPages();
     this.currentPage = 1;
@@ -85,7 +85,7 @@ export class AdminHomeComponent implements OnInit {
 
   addEtablissement(): void {
     // Initialize a new etablissement for addition
-    this.selectedEtablissement = { nomEtablissement: '', ville: '', province: '', lienLogo: '' };
+    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: '' };
   }
 
   editEtablissement(etablissement: Etablissement): void {
