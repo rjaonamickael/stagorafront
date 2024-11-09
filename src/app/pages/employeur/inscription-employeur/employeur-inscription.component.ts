@@ -55,8 +55,8 @@ export class EmployeurInscriptionComponent {
           alert(response.message); // Affiche le message de succès
         },
         (error) => {
-          console.error("Erreur lors de l'inscription:", error);
-          alert(error.error.error || "Erreur lors de l'inscription."); // Affiche le message d'erreur
+          console.error("Erreur lors de l'inscription:", error.message);
+          alert(error.message || "Erreur lors de l'inscription."); // Affiche le message d'erreur
         }
       );
     } else {

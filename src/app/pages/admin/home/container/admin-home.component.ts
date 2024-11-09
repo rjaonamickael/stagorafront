@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EtablissementService } from '../../../../../services/etablissement.service';
 import { Etablissement } from '../../../../../models/etablissement.model';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss']
 })
-export class AdminHomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit, OnDestroy {
   etablissements: Etablissement[] = [];
   filteredEtablissements: Etablissement[] = [];
   displayedEtablissements: Etablissement[] = [];
@@ -28,11 +28,13 @@ export class AdminHomeComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe to prevent memory leaks
     this.subscription?.unsubscribe();
   }
 
   loadEtablissements(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.subscription = this.etablissementService.etablissements$.subscribe(
       (data: Etablissement[]) => {
         this.etablissements = data;
@@ -57,10 +59,9 @@ export class AdminHomeComponent implements OnInit {
 
   onSearch(): void {
     this.filteredEtablissements = this.etablissements.filter(etablissement =>
-      etablissement.nomEtablissement ? etablissement.nomEtablissement.toLowerCase().includes(this.searchTerm.toLowerCase()) : false
+      etablissement.nom ? etablissement.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) : false
     );
     this.calculateTotalPages();
-    this.currentPage = 1;
     this.updateDisplayedEtablissements();
   }
 
@@ -84,54 +85,77 @@ export class AdminHomeComponent implements OnInit {
   }
 
   addEtablissement(): void {
-    // Initialize a new etablissement for addition
-    this.selectedEtablissement = { nomEtablissement: '', ville: '', province: '', lienLogo: '' };
+    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: undefined };
   }
 
   editEtablissement(etablissement: Etablissement): void {
-    // Clone the selected etablissement to avoid direct mutation
+    
     this.selectedEtablissement = { ...etablissement };
   }
 
   saveEtablissement(): void {
     if (this.selectedEtablissement) {
       if (this.selectedEtablissement.id) {
-        // Update existing etablissement
-        this.etablissementService.updateEtablissement(this.selectedEtablissement.id, this.selectedEtablissement).subscribe(
-          (updated) => {
-            const index = this.etablissements.findIndex(e => e.id === updated.id);
-            if (index !== -1) this.etablissements[index] = updated;
-            this.refreshEtablissements();
-            this.selectedEtablissement = null;
-          },
-          (error) => console.error('Erreur lors de la modification de l’établissement:', error)
-        );
+
+        this.etablissementService.updateEtablissement(this.selectedEtablissement.id, this.selectedEtablissement)
+          .subscribe(
+            (updatedEtablissement) => {
+
+              this.updateLocalEtablissement(updatedEtablissement);
+              this.cancel();
+            },
+            (error) => console.error("Erreur lors de la mise à jour de l'établissement:", error)
+          );
       } else {
-        // Add a new etablissement
-        this.etablissementService.addEtablissement(this.selectedEtablissement).subscribe(
+
+        const formData = new FormData();
+        formData.append('nom', this.selectedEtablissement.nom || '');
+        formData.append('ville', this.selectedEtablissement.ville || '');
+        formData.append('province', this.selectedEtablissement.province || '');
+
+        if (this.selectedEtablissement.logo) {
+          formData.append('logo', this.selectedEtablissement.logo);
+        }
+
+        this.etablissementService.addEtablissement(formData).subscribe(
           (newEtablissement) => {
+
             this.etablissements.push(newEtablissement);
-            this.refreshEtablissements();
-            this.selectedEtablissement = null;
+            this.calculateTotalPages();
+            this.updateDisplayedEtablissements();
+            this.cancel();
           },
-          (error) => console.error('Erreur lors de l’ajout de l’établissement:', error)
+          (error) => console.error("Erreur lors de l’ajout de l’établissement:", error)
         );
       }
     }
+  }
+
+  updateLocalEtablissement(updatedEtablissement: Etablissement): void {
+
+    const index = this.etablissements.findIndex(e => e.id === updatedEtablissement.id);
+
+    if (index !== -1) {
+
+      this.etablissements[index] = updatedEtablissement;
+    }
+
+
+    this.filteredEtablissements = [...this.etablissements];
+    this.updateDisplayedEtablissements();
   }
 
   deleteEtablissement(id: number): void {
     this.etablissementService.deleteEtablissement(id).subscribe(
       () => {
         this.etablissements = this.etablissements.filter(e => e.id !== id);
-        this.refreshEtablissements();
+        this.updateDisplayedEtablissements();
       },
       (error) => console.error('Erreur lors de la suppression de l’établissement:', error)
     );
   }
 
-  private refreshEtablissements(): void {
-    // Reapply search and pagination updates
-    this.onSearch();
+  cancel(): void {
+    this.selectedEtablissement = null;
   }
 }
