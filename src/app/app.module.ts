@@ -4,24 +4,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { EmployeurInscriptionComponent } from './pages/employeur/inscription-employeur/employeur-inscription.component';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './pages/admin/admin.module';
-// src/models/employeur.model.ts
-import { Site } from '../models/site.model'; // Ajustez le chemin selon l’emplacement du fichier `site.model.ts`
+
+// Import the components
+import { EmployeurInscriptionComponent } from './pages/employeur/inscription-employeur/employeur-inscription.component';
+import { LoginComponent } from './pages/employeur/login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeurInscriptionComponent,
+    LoginComponent, // Declare LoginComponent here
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule, // Import nécessaire pour le routage
+    RouterModule, // Necessary for routing
     AppRoutingModule,
     AdminModule
   ],

@@ -1,4 +1,3 @@
-// src/app/services/etablissement.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject, Subject } from 'rxjs';
@@ -28,6 +27,7 @@ export class EtablissementService {
     this.loadEtablissements();
   }
 
+  // Load all etablissements on service initialization
   private loadEtablissements(): void {
     this.http.get<Etablissement[]>(this.baseUrl).pipe(
       catchError(this.handleError)
@@ -37,30 +37,43 @@ export class EtablissementService {
     });
   }
 
-  addEtablissement(etablissement: Etablissement): Observable<Etablissement> {
-    return this.http.post<Etablissement>(this.baseUrl, etablissement, this.httpOptions).pipe(
+  // Validate etablissement fields
+  private isEtablissementValid(etablissement: Etablissement): boolean {
+    return !!(etablissement.nom && etablissement.ville && etablissement.province);
+  }
+
+  // Add a new etablissement
+  addEtablissement(formData: FormData): Observable<Etablissement> {
+    return this.http.post<Etablissement>(this.baseUrl, formData).pipe(
       tap(newEtablissement => {
-        const currentEtablissements = this.etablissementsSubject.value;
-        this.etablissementsSubject.next([...currentEtablissements, newEtablissement]);
-        this.emitActivity('Nouvel établissement ajouté', newEtablissement.nomEtablissement);
+        // Évitez d'ajouter localement ici, laissez le composant gérer le rechargement de la liste
+        this.emitActivity('Nouvel établissement ajouté', newEtablissement.nom);
       }),
       catchError(this.handleError)
     );
   }
+
 
   updateEtablissement(id: number, etablissement: Etablissement): Observable<Etablissement> {
-    return this.http.put<Etablissement>(`${this.baseUrl}/${id}`, etablissement, this.httpOptions).pipe(
+    const formData = new FormData();
+    formData.append('nom', etablissement.nom);
+    formData.append('ville', etablissement.ville);
+    formData.append('province', etablissement.province);
+
+    if (etablissement.logo instanceof File) {
+      formData.append('logo', etablissement.logo, etablissement.logo.name);
+    }
+
+    return this.http.put<Etablissement>(`${this.baseUrl}/${id}`, formData).pipe(
       tap(updatedEtablissement => {
-        const currentEtablissements = this.etablissementsSubject.value.map(e =>
-          e.id === updatedEtablissement.id ? updatedEtablissement : e
-        );
-        this.etablissementsSubject.next(currentEtablissements);
-        this.emitActivity('Mise à jour des informations', updatedEtablissement.nomEtablissement);
+        console.log("Établissement mis à jour :", updatedEtablissement);
       }),
       catchError(this.handleError)
     );
   }
 
+
+  // Delete an etablissement by id
   deleteEtablissement(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`, this.httpOptions).pipe(
       tap(() => {
@@ -72,6 +85,7 @@ export class EtablissementService {
     );
   }
 
+  // Emit an activity log
   private emitActivity(action: string, detail: string): void {
     const activity: Activity = {
       action,
@@ -82,6 +96,7 @@ export class EtablissementService {
     console.log("Activity emitted:", activity);
   }
 
+  // Handle HTTP errors
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(() => new Error('An error occurred. Please try again later.'));

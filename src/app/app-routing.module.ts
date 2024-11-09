@@ -4,16 +4,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './pages/admin/home/dashboard/dashboard.component';
 import { AdminHomeComponent } from './pages/admin/home/container/admin-home.component';
-import { EmployeurInscriptionComponent} from './pages/employeur/inscription-employeur/employeur-inscription.component';
+import { EmployeurInscriptionComponent } from './pages/employeur/inscription-employeur/employeur-inscription.component';
 import { EtudiantInscriptionComponent } from './pages/etudiant/etudiant-inscription/etudiant-inscription.component';
+import { LoginComponent } from './pages/employeur/login/login.component'; // Import the LoginComponent
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },  
-  { path: 'dashboard', component: DashboardComponent },       // Route vers le Dashboard (Accueil)
-  { path: 'admin-home', component: AdminHomeComponent },      // Route vers la gestion des établissements
-  { path: 'inscription-employeur', component: EmployeurInscriptionComponent }, // Route vers l'inscription des employeurs
+  { path: '', redirectTo: '/login', pathMatch: 'full' },  // Redirect to login by default
+  { path: 'login', component: LoginComponent },            // Route for Login
+  { path: 'dashboard', component: DashboardComponent },    // Route for Dashboard
+  { path: 'admin-home', component: AdminHomeComponent },   // Route for Admin Home
+  { path: 'inscription-employeur', component: EmployeurInscriptionComponent }, // Route for Employer Registration
   { path: 'inscription-etudiant', component: EtudiantInscriptionComponent }, // Route vers l'inscription des etudiants
-  { path: '**', redirectTo: '/dashboard' }  // Redirection des routes inconnues vers le Dashboard
+  { path: '**', redirectTo: '/login' }   // Redirect unknown routes to Login
 ];
 
 @NgModule({
