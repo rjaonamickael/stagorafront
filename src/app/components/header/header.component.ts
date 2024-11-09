@@ -1,4 +1,4 @@
-// src/app/components/header/header.component.ts
+
 import { Component } from '@angular/core';
 
 @Component({
