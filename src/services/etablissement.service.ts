@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject, Subject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Etablissement } from '../models/etablissement.model';
 
 interface Activity {
@@ -101,4 +101,14 @@ export class EtablissementService {
     console.error('An error occurred:', error);
     return throwError(() => new Error('An error occurred. Please try again later.'));
   }
+
+  // Nouvelle méthode pour obtenir les établissements avec ID et nom
+  getEtablissements(): Observable<{ id: number, nom: string }[]> {
+    return this.etablissements$.pipe(
+      map(etablissements => 
+        etablissements.filter(e => e.id !== undefined) // Filtrer les établissements sans ID
+        .map(e => ({ id: e.id!, nom: e.nom }))) // Utiliser `!` pour indiquer que `id` est défini
+    );
+  }
+
 }
