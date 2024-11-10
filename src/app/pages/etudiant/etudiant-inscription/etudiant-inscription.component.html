@@ -1,1 +1,80 @@
-<p>etudiant-inscription works!</p>
+<div class="inscription-page">
+    <header class="inscription-header">
+        <h2>Inscription Etudiant</h2>
+        <nav>
+        <a routerLink="/login">Connexion</a>
+        <a routerLink="/inscription-etudiant">Inscription</a>
+        </nav>
+    </header>
+    <div class="inscription-container">
+        <!-- image -->
+        <div class="inscription-image">
+            <img src="/assets/inscription.JPG" alt="Image d'inscription" />
+        </div>
+
+        <!-- Formulaire d'inscription Etudiant -->
+         <form [formGroup]="etudiantInscriptionForm" (ngSubmit)="onSubmit()">
+            <h3>Informations Utilisateur</h3>
+            <div formGroupName="user">
+                <label>Email:</label>
+                <input formControlName="email" type="email" />
+                <div *ngIf="etudiantInscriptionForm.get('user.email')?.invalid &&
+                             (etudiantInscriptionForm.get('user.email')?.touched ||
+                             etudiantInscriptionForm.get('user.email')?.dirty)">
+                  <span *ngIf="etudiantInscriptionForm.get('user.email')?.errors?.['required']">L'email est requis.</span>
+                  <span *ngIf="etudiantInscriptionForm.get('user.email')?.errors?.['email']">L'email n'est pas valide.</span>
+                </div>
+        
+                <label>Mot de passe:</label>
+                <input formControlName="mot_de_passe" type="password" />
+                <div *ngIf="etudiantInscriptionForm.get('user.mot_de_passe')?.invalid &&
+                             (etudiantInscriptionForm.get('user.mot_de_passe')?.touched ||
+                             etudiantInscriptionForm.get('user.mot_de_passe')?.dirty)">
+                  <span *ngIf="etudiantInscriptionForm.get('user.mot_de_passe')?.errors?.['required']">Le mot de passe est requis.</span>
+                  <span *ngIf="etudiantInscriptionForm.get('user.mot_de_passe')?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères.</span>
+                </div>
+        
+                <label>Téléphone:</label>
+                <input formControlName="phone" type="text" />
+              </div>
+
+            <h3>Informations Etudiant</h3>
+            <div formGroupName="etudiant">
+                <label>Nom </label>
+                <input formControlName="nom" type="text" />
+                <div *ngIf="etudiantInscriptionForm.get('etudiant.nom')?.invalid &&
+                            (etudiantInscriptionForm.get('etudiant.nom')?.touched ||
+                            etudiantInscriptionForm.get('etudiant.nom')?.dirty)">
+                <span *ngIf="etudiantInscriptionForm.get('etudiant.nom')?.errors?.['required']">Le nom de l'etudiant est requis.</span>
+                </div>
+
+                <label>Prénom</label>
+                <input formControlName="prenom" type="text" />
+                <div *ngIf="etudiantInscriptionForm.get('etudiant.prenom')?.invalid &&
+                            (etudiantInscriptionForm.get('etudiant.prenom')?.touched ||
+                            etudiantInscriptionForm.get('etudiant.prenom')?.dirty)">
+                <span *ngIf="etudiantInscriptionForm.get('etudiant.prenom')?.errors?.['required']">Le prénom de l'etudiant est requis.</span>
+                </div>
+
+                <label for="etablissement">Établissement</label>
+                <select formControlName="etudiant.etablissement">
+                  <option value="" disabled selected>Choisir un établissement</option>
+                  <option *ngFor="let etablissement of etablissements" [value]="etablissement.id">
+                    {{ etablissement.nom }}
+                  </option>
+                </select>
+                <div *ngIf="etudiantInscriptionForm.get('etudiant.etablissement')?.invalid &&
+                            (etudiantInscriptionForm.get('etudiant.etablissement')?.touched ||
+                            etudiantInscriptionForm.get('etudiant.etablissement')?.dirty)">
+                  <span *ngIf="etudiantInscriptionForm.get('etudiant.etablissement')?.errors?.['required']">
+                    L'établissement est requis.
+                  </span>
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="etudiantInscriptionForm.invalid">
+                S'inscrire
+            </button>
+         </form>
+    </div>
+</div>

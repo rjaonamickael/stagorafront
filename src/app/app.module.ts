@@ -12,6 +12,7 @@ import { AdminModule } from './pages/admin/admin.module';
 // Import the components
 import { EmployeurInscriptionComponent } from './pages/employeur/inscription-employeur/employeur-inscription.component';
 import { LoginComponent } from './pages/employeur/login/login.component';
+import { EtudiantInscriptionComponent } from './pages/etudiant/etudiant-inscription/etudiant-inscription.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { LoginComponent } from './pages/employeur/login/login.component';
     HttpClientModule,
     RouterModule, // Necessary for routing
     AppRoutingModule,
-    AdminModule
+    AdminModule,
+    EtudiantInscriptionComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

@@ -1,0 +1,162 @@
+
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$error-color: #e74c3c;
+$border-radius: 5px;
+$button-bg-color: #3498db;
+$button-bg-hover: darken($button-bg-color, 10%);
+$form-width: 700px;
+$image-width: 250px;
+
+
+.inscription-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f5f7;
+  padding: 20px;
+}
+
+// Header
+.inscription-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: $form-width;
+  padding: 10px 0;
+  border-bottom: 2px solid #e0e0e0;
+
+  h2 {
+    color: $primary-color;
+  }
+
+  nav a {
+    color: $primary-color;
+    margin-left: 20px;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Main content container
+.inscription-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: $form-width;
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+// Image container
+.inscription-image {
+  flex: 1;
+  max-width: $image-width;
+  margin-right: 20px;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+// Form styling
+form {
+  flex: 2;
+  max-width: $form-width;
+  width: 100%;
+
+  h3, h4 {
+    color: $primary-color;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    color: #333;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    transition: border-color 0.3s ease;
+    font-size: 0.9rem;
+
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+    }
+  }
+
+  .error {
+    color: $error-color;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+
+
+  button[type="button"],
+  button[type="submit"] {
+    background-color: $button-bg-color;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: $button-bg-hover;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+
+  button[type="button"] {
+    margin-right: 10px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inscription-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .inscription-image {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  form {
+    max-width: 100%;
+  }
+}
