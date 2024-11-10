@@ -36,6 +36,10 @@
         
                 <label>Téléphone:</label>
                 <input formControlName="phone" type="text" />
+                <div *ngIf="etudiantInscriptionForm.get('user.phone')?.invalid &&
+                    (etudiantInscriptionForm.get('user.phone')?.touched || etudiantInscriptionForm.get('user.phone')?.dirty)">
+                    <span *ngIf="etudiantInscriptionForm.get('user.phone')?.errors?.['pattern']">Le téléphone doit comporter 10 chiffres.</span>
+                </div>
               </div>
 
             <h3>Informations Etudiant</h3>
@@ -57,7 +61,7 @@
                 </div>
 
                 <label for="etablissement">Établissement</label>
-                <select formControlName="etudiant.etablissement">
+                <select formControlName="etablissement">
                   <option value="" disabled selected>Choisir un établissement</option>
                   <option *ngFor="let etablissement of etablissements" [value]="etablissement.id">
                     {{ etablissement.nom }}
