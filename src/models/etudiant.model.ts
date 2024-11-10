@@ -5,6 +5,6 @@ export interface Etudiant{
     etudiant: {
         nom: string;
         prenom: string;
-        etablissement: string;   
+        etablissement: number;   
     };
 }
