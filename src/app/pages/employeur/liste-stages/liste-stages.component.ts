@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./liste-stages.component.scss']
 })
 export class ListeStagesComponent implements OnInit {
-  stages: any[] = []; // Tableau pour stocker les stages
+  stages: any[] = []; // Tableau pour stocker les données des stages
 
   constructor(private http: HttpClient) {}
 
@@ -15,24 +15,18 @@ export class ListeStagesComponent implements OnInit {
     this.chargerStages();
   }
 
-  // Méthode pour récupérer les stages
+  // Méthode pour récupérer les stages depuis l'API
   chargerStages(): void {
-    const idEmployeur = 1; // ID de l'employeur (à adapter si nécessaire)
-
+    const idEmployeur = 1; // Remplacez par l'ID correct
     this.http.get(`http://localhost:8082/employeur/${idEmployeur}/stages`)
       .subscribe({
         next: (data: any) => {
-          this.stages = data;
+          this.stages = data; // Stocke les données dans le tableau
           console.log('Stages récupérés :', this.stages);
         },
         error: (error) => {
           console.error('Erreur lors de la récupération des stages :', error.message || error);
         },
       });
-  }
-
-  // Fonction pour `trackBy` dans `*ngFor`
-  trackById(index: number, stage: any): number {
-    return stage.id;
   }
 }
