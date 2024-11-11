@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-ajouter-stage',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./ajouter-stage.component.scss'],
 })
 export class AjouterStageComponent {
-  // Définir toutes les propriétés utilisées dans le fichier HTML
+  // Données du formulaire
   stageData = {
     intitule: '',
     categorie: '',
@@ -23,23 +24,33 @@ export class AjouterStageComponent {
     avantages: '',
   };
 
-  // Liste des catégories et options pour les sélecteurs
+  // Options pour les champs
   categories = ['Développement', 'Marketing', 'Design', 'Management'];
   typesStage = ['Stage de fin d\'études', 'Stage professionnel'];
   modalites = ['Présentiel', 'Distanciel'];
   niveauxEtudes = ['Bac+2', 'Bac+3', 'Bac+5'];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  // Méthode appelée lors de la soumission du formulaire
+  // Méthode appelée à la soumission du formulaire
   onSubmit(): void {
-    console.log('Stage soumis :', this.stageData);
-    alert('Stage ajouté ou modifié avec succès!');
+    const idEmployeur = 1; // ID de l'employeur (à adapter si nécessaire)
+
+    this.http.post(`http://localhost:8082/employeur/${idEmployeur}/stages`, this.stageData)
+      .subscribe({
+        next: (response) => {
+          console.log('Stage ajouté avec succès :', response);
+          alert('Stage ajouté avec succès!');
+        },
+        error: (error) => {
+          console.error('Erreur lors de l\'ajout du stage :', error);
+          alert('Une erreur est survenue lors de l\'ajout du stage.');
+        },
+      });
   }
 
-  // Méthode pour annuler l’action
+  // Méthode pour annuler
   onCancel(): void {
-    console.log('Action annulée');
-    alert('Action annulée');
+    alert('Ajout annulé');
   }
 }

@@ -1,0 +1,15 @@
+<div *ngIf="stages && stages.length > 0; else aucunStage">
+  <h2>Liste des Stages</h2>
+  <ul>
+    <li *ngFor="let stage of stages; trackBy: trackById">
+      <h3>{{ stage.intitule }}</h3>
+      <p><strong>Description :</strong> {{ stage.description }}</p>
+      <p><strong>Catégorie :</strong> {{ stage.categorie }}</p>
+      <p><strong>Date de début :</strong> {{ stage.date_debut || 'Non spécifiée' }} | <strong>Date de fin :</strong> {{ stage.date_fin || 'Non spécifiée' }}</p>
+    </li>
+  </ul>
+</div>
+
+<ng-template #aucunStage>
+  <p>Aucun stage trouvé.</p>
+</ng-template>

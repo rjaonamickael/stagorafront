@@ -21,7 +21,7 @@
       <div class="form-group">
         <label for="categorie">Catégorie</label>
         <select id="categorie" [(ngModel)]="stageData.categorie" name="categorie" required>
-          <option value="" disabled selected>Sélectionner une catégorie</option>
+          <option value="" disabled>Sélectionner une catégorie</option>
           <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
         </select>
       </div>
@@ -75,6 +75,7 @@
       <div class="form-group">
         <label for="typeStage">Type de stage</label>
         <select id="typeStage" [(ngModel)]="stageData.typeStage" name="typeStage" required>
+          <option value="" disabled>Sélectionner un type</option>
           <option *ngFor="let type of typesStage" [value]="type">{{ type }}</option>
         </select>
       </div>
@@ -82,6 +83,7 @@
       <div class="form-group">
         <label for="modalite">Modalité</label>
         <select id="modalite" [(ngModel)]="stageData.modalite" name="modalite" required>
+          <option value="" disabled>Sélectionner une modalité</option>
           <option *ngFor="let mode of modalites" [value]="mode">{{ mode }}</option>
         </select>
       </div>
@@ -102,6 +104,7 @@
       <div class="form-group">
         <label for="niveauEtudes">Niveau d'études</label>
         <select id="niveauEtudes" [(ngModel)]="stageData.niveauEtudes" name="niveauEtudes" required>
+          <option value="" disabled>Sélectionner un niveau</option>
           <option *ngFor="let niveau of niveauxEtudes" [value]="niveau">{{ niveau }}</option>
         </select>
       </div>
