@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EtudiantService } from '../../../../services/etudiant.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-etudiant-inscription',
@@ -19,6 +20,7 @@ export class EtudiantInscriptionComponent {
   constructor(
     private etudiantService: EtudiantService,
     private fb: FormBuilder,
+    private router: Router
 
   ) {
       this.etudiantInscriptionForm = this.fb.group({
@@ -87,6 +89,7 @@ export class EtudiantInscriptionComponent {
         (response) => {
           console.log("Inscription réussie : ", response.message);
           alert(response.message);
+          this.router.navigate(['/login-etudiant']);
         },
         (error) => {
           console.error("Erreur lors de l'inscription de l'étudiant: ", error);
