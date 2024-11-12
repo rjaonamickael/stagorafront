@@ -1,4 +1,4 @@
-
+// Variables
 $primary-color: #3498db;
 $secondary-color: #2ecc71;
 $error-color: #e74c3c;
@@ -9,7 +9,7 @@ $form-width: 700px;
 $image-width: 250px;
 
 
-.inscription-page {
+.login-page, .inscription-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@ $image-width: 250px;
 }
 
 // Header
-.inscription-header {
+.login-header, .inscription-header {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -43,22 +43,21 @@ $image-width: 250px;
   }
 }
 
-// Main content container
-.inscription-container {
+
+.login-content, .inscription-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: $form-width;
-  margin-top: 20px;
+  gap: 40px;
   background-color: #ffffff;
   padding: 20px;
   border-radius: $border-radius;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-// Image container
-.inscription-image {
+.login-image, .inscription-image {
   flex: 1;
   max-width: $image-width;
   margin-right: 20px;
@@ -70,15 +69,21 @@ $image-width: 250px;
   }
 }
 
-// Form styling
-form {
+
+.login-form, .inscription-form {
   flex: 2;
   max-width: $form-width;
   width: 100%;
 
-  h3, h4 {
+  h2, h3, h4 {
     color: $primary-color;
     margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 1rem;
   }
 
   label {
@@ -132,31 +137,27 @@ form {
     }
   }
 
-
-  button[type="button"] {
-    margin-right: 10px;
-  }
-
   button[type="submit"] {
     width: 100%;
     margin-top: 20px;
   }
 }
 
+// Responsive adjustments
 @media (max-width: 768px) {
-  .inscription-container {
+  .login-content, .inscription-container {
     flex-direction: column;
     align-items: center;
     padding: 15px;
   }
 
-  .inscription-image {
+  .login-image, .inscription-image {
     max-width: 100%;
     margin-right: 0;
     margin-bottom: 20px;
   }
 
-  form {
+  .login-form, .inscription-form {
     max-width: 100%;
   }
 }

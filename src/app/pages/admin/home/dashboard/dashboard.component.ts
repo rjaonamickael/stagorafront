@@ -18,16 +18,15 @@ interface Activity {
 export class DashboardComponent implements OnInit, OnDestroy {
   etablissements: Etablissement[] = [];
   activities: Activity[] = [];
-  selectedEtablissement: Etablissement = { nom: '', ville: '', province: '', logo: '' };
+  selectedEtablissement: Etablissement = { nom: '', ville: '', province: '', logo: undefined };
   isFormVisible = false;
-  showAllEstablishments = false; // Flag to control "Voir tout" functionality
+  showAllEstablishments = false;
   private destroy$ = new Subject<void>();
 
   constructor(private etablissementService: EtablissementService) {}
 
   ngOnInit(): void {
     this.loadEtablissements();
-
     this.etablissementService.addActivity$
       .pipe(debounceTime(100), takeUntil(this.destroy$))
       .subscribe((activity) => {
@@ -41,14 +40,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(
         (etablissements) => {
           this.etablissements = etablissements;
-          console.log("Etablissements loaded in DashboardComponent:", this.etablissements);
+          console.log("Etablissements loaded:", this.etablissements); // Vérifiez le contenu des établissements
         },
         (error) => console.error("Erreur lors du chargement des établissements:", error)
       );
   }
 
   showFormForNewEtablissement(): void {
-    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: '' };
+    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: undefined };
     this.isFormVisible = true;
   }
 
@@ -58,27 +57,39 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   saveEtablissement(): void {
-    if (this.selectedEtablissement) {
-      if (this.selectedEtablissement.id) {
-        this.etablissementService.updateEtablissement(this.selectedEtablissement.id, this.selectedEtablissement).subscribe(
-          (updated) => {
-            const index = this.etablissements.findIndex(e => e.id === updated.id);
-            if (index !== -1) this.etablissements[index] = updated;
-            this.logActivity('Mise à jour des informations', updated.nom || '');
+    if (this.selectedEtablissement.id) {
+     
+      this.etablissementService.updateEtablissement(this.selectedEtablissement.id, this.selectedEtablissement)
+        .subscribe(
+          (updatedEtablissement) => {
+            const index = this.etablissements.findIndex(e => e.id === updatedEtablissement.id);
+            if (index !== -1) {
+              this.etablissements[index] = updatedEtablissement;
+            }
+            this.logActivity('Établissement modifié', updatedEtablissement.nom || '');
             this.cancel();
           },
-          (error) => console.error("Erreur lors de la modification de l'établissement:", error)
+          (error) => console.error("Erreur lors de la mise à jour de l'établissement:", error)
         );
-      } else {
-        this.etablissementService.addEtablissement(this.selectedEtablissement).subscribe(
-          (newEtablissement) => {
-            this.etablissements.push(newEtablissement);
-            this.logActivity('Nouvel établissement ajouté', newEtablissement.nom || '');
-            this.cancel();
-          },
-          (error) => console.error("Erreur lors de l’ajout de l’établissement:", error)
-        );
+    } else {
+
+      const formData = new FormData();
+      formData.append('nom', this.selectedEtablissement.nom);
+      formData.append('ville', this.selectedEtablissement.ville);
+      formData.append('province', this.selectedEtablissement.province);
+
+      if (this.selectedEtablissement.logo) {
+        formData.append('logo', this.selectedEtablissement.logo);
       }
+
+      this.etablissementService.addEtablissement(formData).subscribe(
+        (newEtablissement) => {
+          this.etablissements.push(newEtablissement);
+          this.logActivity('Nouvel établissement ajouté', newEtablissement.nom || '');
+          this.cancel();
+        },
+        (error) => console.error("Erreur lors de l’ajout de l’établissement:", error)
+      );
     }
   }
 
@@ -94,20 +105,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   cancel(): void {
-    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: '' };
+    this.selectedEtablissement = { nom: '', ville: '', province: '', logo: undefined };
     this.isFormVisible = false;
   }
 
   logActivity(action: string, detail: string): void {
-    const activityExists = this.activities.some(
-      (activity) => activity.action === action && activity.detail === detail && activity.timestamp.toDateString() === new Date().toDateString()
-    );
-
-    if (!activityExists) {
-      const activity: Activity = { action, detail, timestamp: new Date() };
-      this.activities.unshift(activity);
-      console.log("Activity logged:", activity);
-    }
+    const activity: Activity = { action, detail, timestamp: new Date() };
+    this.activities.unshift(activity);
+    console.log("Activity logged:", activity);
   }
 
   getTimeAgo(date: Date): string {
@@ -120,8 +125,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     else return "aujourd'hui";
   }
 
-  onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'assets/logo.jpg';
+  getLogoUrl(logoFilename: string | undefined): string {
+    if (logoFilename) {
+      const fullUrl = `http://localhost:8082/files/images/${logoFilename}`;
+      return fullUrl;
+    }
+    return 'assets/logo.jpg';
   }
 
   ngOnDestroy(): void {
@@ -130,7 +139,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   toggleViewAll(): void {
-    // Toggle the view between limited and full view
     this.showAllEstablishments = !this.showAllEstablishments;
+  }
+
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      this.selectedEtablissement.logo = file;
+    }
+  }
+
+  isString(value: any): value is string {
+    return typeof value === 'string';
+  }
+
+  onImageError(event: Event): void {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = 'assets/logo.jpg';
   }
 }

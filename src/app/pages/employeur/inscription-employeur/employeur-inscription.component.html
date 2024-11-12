@@ -1,73 +1,92 @@
-<form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
-  <h3>Informations Utilisateur</h3>
-  <div formGroupName="user">
-    <label>Email:</label>
-    <input formControlName="email" type="email" />
-    <div *ngIf="inscriptionForm.get('user.email')?.invalid &&
-                 (inscriptionForm.get('user.email')?.touched ||
-                  inscriptionForm.get('user.email')?.dirty)">
-      <span *ngIf="inscriptionForm.get('user.email')?.errors?.['required']">L'email est requis.</span>
-      <span *ngIf="inscriptionForm.get('user.email')?.errors?.['email']">L'email n'est pas valide.</span>
+<div class="inscription-page">
+
+  <header class="inscription-header">
+    <h2>Inscription</h2>
+    <nav>
+      <a routerLink="/login">Connexion</a>
+      <a routerLink="/inscription-employeur">Inscription</a>
+    </nav>
+  </header>
+
+  <div class="inscription-container">
+  
+    <div class="inscription-image">
+      <img src="/assets/inscription.JPG" alt="Image d'inscription" />
     </div>
 
-    <label>Mot de passe:</label>
-    <input formControlName="mot_de_passe" type="password" />
-    <div *ngIf="inscriptionForm.get('user.mot_de_passe')?.invalid &&
-                 (inscriptionForm.get('user.mot_de_passe')?.touched ||
-                  inscriptionForm.get('user.mot_de_passe')?.dirty)">
-      <span *ngIf="inscriptionForm.get('user.mot_de_passe')?.errors?.['required']">Le mot de passe est requis.</span>
-      <span *ngIf="inscriptionForm.get('user.mot_de_passe')?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères.</span>
-    </div>
-
-    <label>Téléphone:</label>
-    <input formControlName="phone" type="text" />
-  </div>
-
-  <h3>Informations Employeur</h3>
-  <div formGroupName="employeur">
-    <label>Nom de l'employeur:</label>
-    <input formControlName="nom" type="text" />
-    <div *ngIf="inscriptionForm.get('employeur.nom')?.invalid &&
-                 (inscriptionForm.get('employeur.nom')?.touched ||
-                  inscriptionForm.get('employeur.nom')?.dirty)">
-      <span *ngIf="inscriptionForm.get('employeur.nom')?.errors?.['required']">Le nom de l'employeur est requis.</span>
-    </div>
-
-    <label>Code:</label>
-    <input formControlName="code" type="text" />
-
-    <h4>Sites</h4>
-    <div formArrayName="sites">
-      <div *ngFor="let site of sites.controls; let i = index" [formGroupName]="i">
-        <label>Nom du site:</label>
-        <input formControlName="nom" type="text" />
-        <div *ngIf="site.get('nom')?.invalid &&
-                     (site.get('nom')?.touched ||
-                      site.get('nom')?.dirty)">
-          <span *ngIf="site.get('nom')?.errors?.['required']">Le nom du site est requis.</span>
+    <!-- Formulaire d'inscription -->
+    <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+      <h3>Informations Utilisateur</h3>
+      <div formGroupName="user">
+        <label>Email:</label>
+        <input formControlName="email" type="email" />
+        <div *ngIf="inscriptionForm.get('user.email')?.invalid &&
+                     (inscriptionForm.get('user.email')?.touched ||
+                      inscriptionForm.get('user.email')?.dirty)">
+          <span *ngIf="inscriptionForm.get('user.email')?.errors?.['required']">L'email est requis.</span>
+          <span *ngIf="inscriptionForm.get('user.email')?.errors?.['email']">L'email n'est pas valide.</span>
         </div>
 
-        <label>Ville:</label>
-        <input formControlName="ville" type="text" />
-        <div *ngIf="site.get('ville')?.invalid &&
-                     (site.get('ville')?.touched ||
-                      site.get('ville')?.dirty)">
-          <span *ngIf="site.get('ville')?.errors?.['required']">La ville est requise.</span>
+        <label>Mot de passe:</label>
+        <input formControlName="mot_de_passe" type="password" />
+        <div *ngIf="inscriptionForm.get('user.mot_de_passe')?.invalid &&
+                     (inscriptionForm.get('user.mot_de_passe')?.touched ||
+                      inscriptionForm.get('user.mot_de_passe')?.dirty)">
+          <span *ngIf="inscriptionForm.get('user.mot_de_passe')?.errors?.['required']">Le mot de passe est requis.</span>
+          <span *ngIf="inscriptionForm.get('user.mot_de_passe')?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères.</span>
         </div>
 
-        <label>Province:</label>
-        <input formControlName="province" type="text" />
-        <div *ngIf="site.get('province')?.invalid &&
-                     (site.get('province')?.touched ||
-                      site.get('province')?.dirty)">
-          <span *ngIf="site.get('province')?.errors?.['required']">La province est requise.</span>
-        </div>
-
-        <button type="button" (click)="removeSite(i)">Supprimer ce site</button>
+        <label>Téléphone:</label>
+        <input formControlName="phone" type="text" />
       </div>
-      <button type="button" (click)="addSite()">Ajouter un site</button>
-    </div>
-  </div>
 
-  <button type="submit">S'inscrire</button>
-</form>
+      <h3>Informations Employeur</h3>
+      <div formGroupName="employeur">
+        <label>Nom de l'employeur:</label>
+        <input formControlName="nom" type="text" />
+        <div *ngIf="inscriptionForm.get('employeur.nom')?.invalid &&
+                     (inscriptionForm.get('employeur.nom')?.touched ||
+                      inscriptionForm.get('employeur.nom')?.dirty)">
+          <span *ngIf="inscriptionForm.get('employeur.nom')?.errors?.['required']">Le nom de l'employeur est requis.</span>
+        </div>
+
+        <label>Code:</label>
+        <input formControlName="code" type="text" />
+
+        <h4>Sites</h4>
+        <div formArrayName="sites">
+          <div *ngFor="let site of sites.controls; let i = index" [formGroupName]="i">
+            <label>Nom du site:</label>
+            <input formControlName="nom" type="text" />
+            <div *ngIf="site.get('nom')?.invalid &&
+                         (site.get('nom')?.touched ||
+                          site.get('nom')?.dirty)">
+              <span *ngIf="site.get('nom')?.errors?.['required']">Le nom du site est requis.</span>
+            </div>
+
+            <label>Ville:</label>
+            <input formControlName="ville" type="text" />
+            <div *ngIf="site.get('ville')?.invalid &&
+                         (site.get('ville')?.touched ||
+                          site.get('ville')?.dirty)">
+              <span *ngIf="site.get('ville')?.errors?.['required']">La ville est requise.</span>
+            </div>
+
+            <label>Province:</label>
+            <input formControlName="province" type="text" />
+            <div *ngIf="site.get('province')?.invalid &&
+                         (site.get('province')?.touched ||
+                          site.get('province')?.dirty)">
+              <span *ngIf="site.get('province')?.errors?.['required']">La province est requise.</span>
+            </div>
+
+            <button type="button" (click)="removeSite(i)">Supprimer ce site</button>
+          </div>
+          <button type="button" (click)="addSite()">Ajouter un site</button>
+        </div>
+      </div>
+
+      <button type="submit">S'inscrire</button>
+    </form>
+  </div>
+</div>

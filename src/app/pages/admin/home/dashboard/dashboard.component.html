@@ -2,7 +2,7 @@
 <div class="container">
   <h1 class="title">Tableau de bord administratif</h1>
 
-  <!-- Section for managing establishments -->
+
   <section class="section etablissements-section">
     <div class="header-row">
       <h2>Gestion des établissements</h2>
@@ -14,10 +14,10 @@
       </div>
     </div>
 
-    <!-- Form for adding/editing an establishment -->
+
     <div *ngIf="isFormVisible" class="etablissement-form">
-      <!-- Correction de l'erreur dans dashboard.component.html -->
-<h3>{{ selectedEtablissement.id ? 'Modifier Établissement' : 'Ajouter un Établissement' }}</h3>
+      <h3>{{ selectedEtablissement.id ? 'Modifier Établissement' : 'Ajouter un Établissement' }}</h3>
+
 
       <label>
         Nom de l'établissement:
@@ -33,21 +33,18 @@
       </label>
       <label>
         Lien du logo:
-        <input type="text" [(ngModel)]="selectedEtablissement.nom" />
+        <input type="file" (change)="onFileSelected($event)" />
       </label>
+
       <button (click)="saveEtablissement()">Enregistrer</button>
       <button (click)="cancel()">Annuler</button>
     </div>
 
-    <!-- List of establishments, with toggleable view limit -->
+
     <div *ngIf="etablissements.length > 0; else noData" class="etablissements-list">
       <div *ngFor="let etablissement of (showAllEstablishments ? etablissements : etablissements | slice:0:3)" class="etablissement-card">
-        <img
-          [src]="etablissement.logo || 'assets/logo.jpg'"
-          (error)="onImageError($event)"
-          alt="{{ etablissement.nom }}"
-          class="etablissement-logo"
-        />
+        <img *ngIf="isString(etablissement.logo) && getLogoUrl(etablissement.logo)"
+             [src]="getLogoUrl(etablissement.logo)" alt="Logo de l'établissement" class="etablissement-logo" />
         <div class="etablissement-details">
           <h3>{{ etablissement.nom }}</h3>
           <p class="location">{{ etablissement.ville }}, {{ etablissement.province }}</p>
@@ -61,29 +58,29 @@
     <ng-template #noData>
       <p>Aucun établissement disponible pour le moment.</p>
     </ng-template>
+
+
   </section>
 
-<!-- Global surveillance section -->
-<section class="section surveillance-section">
-  <h2>Surveillance globale</h2>
-  <div class="global-stats">
-    <div data-label="Employeurs actifs">
-      <span class="stat-value">1,250</span>
+  <section class="section surveillance-section">
+    <h2>Surveillance globale</h2>
+    <div class="global-stats">
+      <div data-label="Employeurs actifs">
+        <span class="stat-value">1,250</span>
+      </div>
+      <div data-label="Stagiaires inscrits">
+        <span class="stat-value">5,670</span>
+      </div>
+      <div data-label="Offres de stages">
+        <span class="stat-value">3,200</span>
+      </div>
+      <div data-label="Établissements partenaires">
+        <span class="stat-value">85</span>
+      </div>
     </div>
-    <div data-label="Stagiaires inscrits">
-      <span class="stat-value">5,670</span>
-    </div>
-    <div data-label="Offres de stages">
-      <span class="stat-value">3,200</span>
-    </div>
-    <div data-label="Établissements partenaires">
-      <span class="stat-value">85</span>
-    </div>
-  </div>
-</section>
+  </section>
 
 
-  <!-- Recent activities section -->
   <section class="section activities-section">
     <h2>Activités récentes</h2>
     <div *ngIf="activities.length > 0; else noActivities">

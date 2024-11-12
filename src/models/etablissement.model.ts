@@ -4,5 +4,5 @@ export interface Etablissement {
   nom: string;
   ville: string;
   province: string;
-  logo: string;
+  logo?: File | string; // Peut être un fichier ou une chaîne de caractères
 }
