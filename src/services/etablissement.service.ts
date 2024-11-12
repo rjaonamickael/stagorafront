@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject, Subject } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Etablissement } from '../models/etablissement.model';
 
 interface Activity {
@@ -15,7 +15,7 @@ interface Activity {
 })
 export class EtablissementService {
   private baseUrl = 'http://localhost:8082/admin/etablissements';
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), cache: 'no-store' };
+  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   private etablissementsSubject = new BehaviorSubject<Etablissement[]>([]);
   etablissements$ = this.etablissementsSubject.asObservable();
@@ -101,13 +101,4 @@ export class EtablissementService {
     console.error('An error occurred:', error);
     return throwError(() => new Error('An error occurred. Please try again later.'));
   }
-
-  // Method to retrieve établissements from the server
-  getEtablissements(): Observable<Etablissement[]> {
-    return this.http.get<Etablissement[]>(this.baseUrl, this.httpOptions).pipe(
-      tap(etablissements => console.log('Établissements récupérés:', etablissements)),
-      catchError(this.handleError)
-    );
-  }
-  
 }
