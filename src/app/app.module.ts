@@ -13,6 +13,8 @@ import { AdminModule } from './pages/admin/admin.module';
 import { EmployeurInscriptionComponent } from './pages/employeur/inscription-employeur/employeur-inscription.component';
 import { LoginComponent } from './pages/employeur/login/login.component';
 import { EtudiantInscriptionComponent } from './pages/etudiant/etudiant-inscription/etudiant-inscription.component';
+import { LoginEtudiantComponent } from './pages/etudiant/login-etudiant/login-etudiant.component';
+import { EtudiantHomeComponent } from './pages/etudiant/etudiant-home/etudiant-home.component';
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { EtudiantInscriptionComponent } from './pages/etudiant/etudiant-inscript
     AppComponent,
     EmployeurInscriptionComponent,
     LoginComponent, // Declare LoginComponent here
+    
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,9 @@ import { EtudiantInscriptionComponent } from './pages/etudiant/etudiant-inscript
     RouterModule, // Necessary for routing
     AppRoutingModule,
     AdminModule,
-    EtudiantInscriptionComponent
+    EtudiantInscriptionComponent,
+    EtudiantHomeComponent,
+    LoginEtudiantComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

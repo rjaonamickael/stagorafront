@@ -7,6 +7,8 @@ import { AdminHomeComponent } from './pages/admin/home/container/admin-home.comp
 import { EmployeurInscriptionComponent } from './pages/employeur/inscription-employeur/employeur-inscription.component';
 import { EtudiantInscriptionComponent } from './pages/etudiant/etudiant-inscription/etudiant-inscription.component';
 import { LoginComponent } from './pages/employeur/login/login.component'; // Import the LoginComponent
+import { LoginEtudiantComponent } from './pages/etudiant/login-etudiant/login-etudiant.component';
+import { EtudiantHomeComponent } from './pages/etudiant/etudiant-home/etudiant-home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },  // Redirect to login by default
@@ -15,7 +17,10 @@ const routes: Routes = [
   { path: 'admin-home', component: AdminHomeComponent },   // Route for Admin Home
   { path: 'inscription-employeur', component: EmployeurInscriptionComponent }, // Route for Employer Registration
   { path: 'inscription-etudiant', component: EtudiantInscriptionComponent }, // Route vers l'inscription des etudiants
-  { path: '**', redirectTo: '/login' }   // Redirect unknown routes to Login
+  { path: 'login-etudiant', component: LoginEtudiantComponent },
+  { path: 'etudiant-home', component: EtudiantHomeComponent },
+  { path: '**', redirectTo: '/login' },   // Redirect unknown routes to Login
+  
 ];
 
 @NgModule({
