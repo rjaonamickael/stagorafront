@@ -15,7 +15,7 @@ interface Activity {
 })
 export class EtablissementService {
   private baseUrl = 'http://localhost:8082/admin/etablissements';
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), cache: 'no-store' };
 
   private etablissementsSubject = new BehaviorSubject<Etablissement[]>([]);
   etablissements$ = this.etablissementsSubject.asObservable();
@@ -102,13 +102,12 @@ export class EtablissementService {
     return throwError(() => new Error('An error occurred. Please try again later.'));
   }
 
-  // Nouvelle méthode pour obtenir les établissements avec ID et nom
-  getEtablissements(): Observable<{ id: number, nom: string }[]> {
-    return this.etablissements$.pipe(
-      map(etablissements => 
-        etablissements.filter(e => e.id !== undefined) // Filtrer les établissements sans ID
-        .map(e => ({ id: e.id!, nom: e.nom }))) // Utiliser `!` pour indiquer que `id` est défini
+  // Method to retrieve établissements from the server
+  getEtablissements(): Observable<Etablissement[]> {
+    return this.http.get<Etablissement[]>(this.baseUrl, this.httpOptions).pipe(
+      tap(etablissements => console.log('Établissements récupérés:', etablissements)),
+      catchError(this.handleError)
     );
   }
-
+  
 }
