@@ -17,10 +17,10 @@ export class EtablissementFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.etablissementForm = this.fb.group({
-      nomEtablissement: ['', Validators.required],
+      nom: ['', Validators.required],
       ville: ['', Validators.required],
       province: ['', Validators.required],
-      lienLogo: ['', Validators.required]
+      logo: ['', Validators.required]
     });
   }
 

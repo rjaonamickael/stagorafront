@@ -2,7 +2,7 @@
 <h2>Ajouter un établissement</h2>
 <form [formGroup]="etablissementForm" (ngSubmit)="onSubmit()">
   <label>Nom de l'établissement:</label>
-  <input formControlName="nomEtablissement" type="text" />
+  <input formControlName="nom" type="text" />
 
   <label>Ville:</label>
   <input formControlName="ville" type="text" />
@@ -11,7 +11,7 @@
   <input formControlName="province" type="text" />
 
   <label>Lien du logo:</label>
-  <input formControlName="lienLogo" type="text" />
+  <input formControlName="logo" type="text" />
 
   <button type="submit">Soumettre</button>
 </form>
