@@ -16,14 +16,20 @@
           required
           placeholder="Ex: Développeur Full-Stack"
         />
+        <div *ngIf="stageForm.form.controls['intitule']?.invalid && stageForm.form.controls['intitule']?.touched">
+          <small class="error-text">L'intitulé est requis.</small>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="categorie">Catégorie</label>
         <select id="categorie" [(ngModel)]="stageData.categorie" name="categorie" required>
-          <option value="" disabled>Sélectionner une catégorie</option>
+          <option disabled>Sélectionner une catégorie</option>
           <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
         </select>
+        <div *ngIf="stageForm.form.controls['categorie']?.invalid && stageForm.form.controls['categorie']?.touched">
+          <small class="error-text">La catégorie est requise.</small>
+        </div>
       </div>
 
       <div class="form-group">
@@ -34,7 +40,11 @@
           [(ngModel)]="stageData.nombrePostes"
           name="nombrePostes"
           required
+          min="1"
         />
+        <div *ngIf="stageForm.form.controls['nombrePostes']?.invalid && stageForm.form.controls['nombrePostes']?.touched">
+          <small class="error-text">Veuillez entrer un nombre valide.</small>
+        </div>
       </div>
 
       <div class="form-group">
@@ -45,6 +55,9 @@
           name="description"
           required
         ></textarea>
+        <div *ngIf="stageForm.form.controls['description']?.invalid && stageForm.form.controls['description']?.touched">
+          <small class="error-text">La description est requise.</small>
+        </div>
       </div>
     </section>
 
@@ -75,7 +88,7 @@
       <div class="form-group">
         <label for="typeStage">Type de stage</label>
         <select id="typeStage" [(ngModel)]="stageData.typeStage" name="typeStage" required>
-          <option value="" disabled>Sélectionner un type</option>
+          <option disabled>Sélectionner un type</option>
           <option *ngFor="let type of typesStage" [value]="type">{{ type }}</option>
         </select>
       </div>
@@ -83,7 +96,7 @@
       <div class="form-group">
         <label for="modalite">Modalité</label>
         <select id="modalite" [(ngModel)]="stageData.modalite" name="modalite" required>
-          <option value="" disabled>Sélectionner une modalité</option>
+          <option disabled>Sélectionner une modalité</option>
           <option *ngFor="let mode of modalites" [value]="mode">{{ mode }}</option>
         </select>
       </div>
@@ -102,10 +115,10 @@
       </div>
 
       <div class="form-group">
-        <label for="niveauEtudes">Niveau d'études</label>
-        <select id="niveauEtudes" [(ngModel)]="stageData.niveauEtudes" name="niveauEtudes" required>
-          <option value="" disabled>Sélectionner un niveau</option>
-          <option *ngFor="let niveau of niveauxEtudes" [value]="niveau">{{ niveau }}</option>
+        <label for="niveau">Niveau d'études</label>
+        <select id="niveau" [(ngModel)]="stageData.niveau" name="niveau" required>
+          <option disabled>Sélectionner un niveau</option>
+          <option *ngFor="let niveau of niveaux" [value]="niveau">{{ niveau }}</option>
         </select>
       </div>
     </section>
@@ -124,22 +137,22 @@
       </div>
 
       <div class="form-group">
-        <label for="lieu">Lieu du stage</label>
+        <label for="adresse">Lieu du stage</label>
         <input
-          id="lieu"
+          id="adresse"
           type="text"
-          [(ngModel)]="stageData.lieu"
-          name="lieu"
+          [(ngModel)]="stageData.adresse"
+          name="adresse"
           placeholder="Ex: Montréal"
         />
       </div>
 
       <div class="form-group">
-        <label for="avantages">Avantages supplémentaires</label>
+        <label for="autres">Avantages supplémentaires</label>
         <textarea
-          id="avantages"
-          [(ngModel)]="stageData.avantages"
-          name="avantages"
+          id="autres"
+          [(ngModel)]="stageData.autres"
+          name="autres"
         ></textarea>
       </div>
     </section>
@@ -147,6 +160,7 @@
     <div class="buttons">
       <button type="submit" class="btn btn-primary">Enregistrer</button>
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+      <button type="button" class="btn btn-danger" (click)="onDelete()">Supprimer</button>
     </div>
   </form>
 </div>

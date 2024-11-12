@@ -21,7 +21,7 @@
       <div class="form-group">
         <label for="categorie">Catégorie</label>
         <select id="categorie" [(ngModel)]="stageData.categorie" name="categorie" required>
-          <option value="" disabled selected>Sélectionner une catégorie</option>
+          <option value="" disabled>Sélectionner une catégorie</option>
           <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
         </select>
       </div>
@@ -34,6 +34,7 @@
           [(ngModel)]="stageData.nombrePostes"
           name="nombrePostes"
           required
+          min="1"
         />
       </div>
 
@@ -75,6 +76,7 @@
       <div class="form-group">
         <label for="typeStage">Type de stage</label>
         <select id="typeStage" [(ngModel)]="stageData.typeStage" name="typeStage" required>
+          <option value="" disabled>Sélectionner un type</option>
           <option *ngFor="let type of typesStage" [value]="type">{{ type }}</option>
         </select>
       </div>
@@ -82,6 +84,7 @@
       <div class="form-group">
         <label for="modalite">Modalité</label>
         <select id="modalite" [(ngModel)]="stageData.modalite" name="modalite" required>
+          <option value="" disabled>Sélectionner une modalité</option>
           <option *ngFor="let mode of modalites" [value]="mode">{{ mode }}</option>
         </select>
       </div>
@@ -100,8 +103,9 @@
       </div>
 
       <div class="form-group">
-        <label for="niveauEtudes">Niveau d'études</label>
-        <select id="niveauEtudes" [(ngModel)]="stageData.niveauEtudes" name="niveauEtudes" required>
+        <label for="niveau">Niveau d'études</label>
+        <select id="niveau" [(ngModel)]="stageData.niveau" name="niveau" required>
+          <option value="" disabled>Sélectionner un niveau</option>
           <option *ngFor="let niveau of niveauxEtudes" [value]="niveau">{{ niveau }}</option>
         </select>
       </div>
@@ -113,30 +117,32 @@
         <label for="remuneration">Rémunération</label>
         <input
           id="remuneration"
-          type="text"
+          type="number"
           [(ngModel)]="stageData.remuneration"
           name="remuneration"
-          placeholder="Ex: 800 $ / mois"
+          placeholder="Ex: 800"
+          min="0"
         />
       </div>
 
       <div class="form-group">
-        <label for="lieu">Lieu du stage</label>
+        <label for="adresse">Lieu du stage</label>
         <input
-          id="lieu"
+          id="adresse"
           type="text"
-          [(ngModel)]="stageData.lieu"
-          name="lieu"
+          [(ngModel)]="stageData.adresse"
+          name="adresse"
           placeholder="Ex: Montreal"
         />
       </div>
 
       <div class="form-group">
-        <label for="avantages">Avantages supplémentaires</label>
+        <label for="autres">Avantages supplémentaires</label>
         <textarea
-          id="avantages"
-          [(ngModel)]="stageData.avantages"
-          name="avantages"
+          id="autres"
+          [(ngModel)]="stageData.autres"
+          name="autres"
+          placeholder="Informations supplémentaires"
         ></textarea>
       </div>
     </section>
