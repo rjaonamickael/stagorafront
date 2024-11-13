@@ -1,0 +1,100 @@
+.accueil-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fa;
+  font-family: 'Arial', sans-serif;
+}
+
+.content {
+  background-color: #fff;
+  padding: 80px;
+  border-radius: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 900px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1a73e8; /* Bleu vif */
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  padding: 5px;
+  background-color: #e3f2fd; /* Bleu clair */
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.option:hover {
+  background-color: #bbdefb; /* Bleu un peu plus foncé au survol */
+  transform: scale(1.05);
+}
+
+.selected {
+  border: 2px solid #1a73e8; /* Bordure bleu vif */
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #1a73e8; /* Couleur bleue */
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1a73e8; /* Bleu vif pour les titres */
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  color: #1a73e8; /* Bleu vif pour les sous-titres */
+}
+
+.continue-container {
+  margin-top: 20px;
+}
+
+.btn-continue {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #1a73e8; /* Bleu vif pour le bouton */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-continue:hover {
+  background-color: #1565c0; /* Plus foncé au survol */
+}

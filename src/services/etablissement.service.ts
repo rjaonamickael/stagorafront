@@ -43,14 +43,9 @@ export class EtablissementService {
   }
 
   // Add a new etablissement
-  addEtablissement(formData: FormData): Observable<Etablissement> {
-    return this.http.post<Etablissement>(this.baseUrl, formData).pipe(
-      tap(newEtablissement => {
-        // Évitez d'ajouter localement ici, laissez le composant gérer le rechargement de la liste
-        this.emitActivity('Nouvel établissement ajouté', newEtablissement.nom);
-      }),
-      catchError(this.handleError)
-    );
+  addEtablissement(formData: FormData): Observable<any> {
+    // Envoyer directement le FormData sans spécifier de Content-Type
+    return this.http.post(this.baseUrl, formData);
   }
 
 

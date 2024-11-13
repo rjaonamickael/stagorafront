@@ -1,0 +1,36 @@
+<div class="accueil-container">
+  <div class="content">
+    <h1>Que voudriez faire ?</h1>
+    <p>Choisissez si vous êtes à la recherche d'un stage ou si vous êtes une organisation/entreprise à la recherche de stagiaires.</p>
+
+    <div class="options-container">
+      <div 
+        class="option" 
+        [ngClass]="{'selected': selectedOption === 'stage'}" 
+        (click)="selectOption('stage')">
+        <div class="icon">
+          <!-- Icône de texte représentant un sac de voyage pour "Trouver un stage" -->
+          💼
+        </div>
+        <h3>Trouver un stage</h3>
+        <p>Je cherche un stage pour moi.</p>
+      </div>
+
+      <div 
+        class="option" 
+        [ngClass]="{'selected': selectedOption === 'stagiaire'}" 
+        (click)="selectOption('stagiaire')">
+        <div class="icon">
+          <!-- Icône de texte représentant une personne pour "Trouver un stagiaire" -->
+          👤
+        </div>
+        <h3>Trouver un stagiaire</h3>
+        <p>Je cherche des stagiaires pour mon organisation.</p>
+      </div>
+    </div>
+
+    <div class="continue-container">
+      <button class="btn-continue" (click)="continue()">Continue</button>
+    </div>
+  </div>
+</div>
