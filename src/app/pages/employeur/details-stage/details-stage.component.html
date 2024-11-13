@@ -1,0 +1,17 @@
+<div class="stage-page">
+  <header>
+    <h1>Détails du stage</h1>
+  </header>
+
+  <div class="stage-details">
+    <h2>{{ stageData.intitule || 'Non spécifié' }}</h2>
+    <p><strong>Catégorie:</strong> {{ stageData.categorie }}</p>
+    <p><strong>Description:</strong> {{ stageData.description }}</p>
+    <p><strong>Nombre de postes:</strong> {{ stageData.nombrePostes }}</p>
+    <p><strong>Date de début:</strong> {{ stageData.dateDebut | date }}</p>
+    <p><strong>Date de fin:</strong> {{ stageData.dateFin | date }}</p>
+    <p><strong>Rémunération:</strong> {{ stageData.remuneration }}</p>
+    <p><strong>Lieu:</strong> {{ stageData.adresse }}</p>
+    <p><strong>Compétences requises:</strong> {{ stageData.competences }}</p>
+  </div>
+</div>

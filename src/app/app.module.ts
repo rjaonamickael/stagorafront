@@ -13,6 +13,7 @@ import { EmployeurInscriptionComponent } from './pages/employeur/inscription-emp
 import { LoginComponent } from './pages/employeur/login/login.component';
 import { AjouterStageComponent } from './pages/employeur/ajouter-stage/ajouter-stage.component';
 import { ModifierStageComponent } from './pages/employeur/modifier-stage/modifier-stage.component';
+import { DetailsStageComponent } from './pages/employeur/details-stage/details-stage.component'; // Importer DetailsStageComponent
 
 // Import du service StageService
 import { StageService } from 'src/services/stage.service';
@@ -24,6 +25,7 @@ import { StageService } from 'src/services/stage.service';
     LoginComponent,
     AjouterStageComponent,
     ModifierStageComponent,
+    DetailsStageComponent, // Ajouter le composant DetailsStage
   ],
   imports: [
     BrowserModule,

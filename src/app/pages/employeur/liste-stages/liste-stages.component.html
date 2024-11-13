@@ -3,12 +3,12 @@
   <div class="stages-list">
     <div *ngFor="let stage of stages" class="stage-item">
       <div class="stage-header">
-        <img src="assets/cgi.jpg" alt="Logo" class="stage-logo" /> <!-- Image du stage -->
-        <h3>{{ stage.intitule || 'Non spécifié' }}</h3> <!-- Affichage de l'intitulé du stage -->
+        <img src="assets/cgi.jpg" alt="Logo" class="stage-logo" />
+        <h3>{{ stage.intitule || 'Non spécifié' }}</h3>
       </div>
       <div class="stage-actions">
-        <!-- Bouton Modifier seulement -->
         <button class="btn-modifier" (click)="modifierStage(stage.id)">Modifier</button>
+        <button class="btn-details" (click)="afficherDetails(stage.id)">Voir les détails</button>
       </div>
     </div>
   </div>

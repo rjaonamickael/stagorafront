@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -11,11 +10,10 @@ import { Router } from '@angular/router';
   standalone :true,
   imports: [
     CommonModule
-    // autres imports si nécessaire
   ]
 })
 export class ListeStagesComponent implements OnInit {
-  stages: any[] = []; // Tableau pour stocker les données des stages
+  stages: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -24,7 +22,7 @@ export class ListeStagesComponent implements OnInit {
   }
 
   chargerStages(): void {
-    const idEmployeur = 1; // Remplacez par l'ID de l'employeur réel
+    const idEmployeur = 1; // Remplacer par l'ID de l'employeur réel
     this.http.get(`http://localhost:8082/employeur/${idEmployeur}/stages`)
       .subscribe({
         next: (data: any) => {
@@ -37,7 +35,10 @@ export class ListeStagesComponent implements OnInit {
   }
 
   modifierStage(stageId: number): void {
-    // Redirige vers la page de modification avec l'ID du stage
     this.router.navigate(['/modifier-stage', stageId]);
+  }
+
+  afficherDetails(stageId: number): void {
+    this.router.navigate(['/details-stage', stageId]);  // Naviguer vers la page de détails du stage
   }
 }

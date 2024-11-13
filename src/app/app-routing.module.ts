@@ -9,6 +9,7 @@ import { AjouterStageComponent } from './pages/employeur/ajouter-stage/ajouter-s
 import { ModifierStageComponent } from './pages/employeur/modifier-stage/modifier-stage.component';
 import { ListeStagesComponent } from './pages/employeur/liste-stages/liste-stages.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
+import { DetailsStageComponent } from './pages/employeur/details-stage/details-stage.component'; // Importer DetailsStageComponent
 
 const routes: Routes = [
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'ajouter-stage', component: AjouterStageComponent },
   { path: 'modifier-stage/:id', component: ModifierStageComponent },
   { path: 'liste-stages', component: ListeStagesComponent },
+  { path: 'details-stage/:id', component: DetailsStageComponent }, // Ajouter la route pour details-stage
   { path: 'dashboard', component: DashboardComponent },
   { path: 'admin-home', component: AdminHomeComponent },
   { path: 'accueil', component: AccueilComponent },
