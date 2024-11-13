@@ -1,0 +1,27 @@
+<div class="stage-details">
+    <header>
+      <h1>Détails du stage</h1>
+    </header>
+  
+    <div *ngIf="stage">
+      <section>
+        <h2>{{ stage.intitule }}</h2>
+        <p><strong>Catégorie :</strong> {{ stage.categorie }}</p>
+        <p><strong>Description :</strong> {{ stage.description }}</p>
+        <p><strong>Nombre de postes :</strong> {{ stage.nombrePostes }}</p>
+        <p><strong>Type :</strong> {{ stage.typeStage }}</p>
+        <p><strong>Période :</strong> Du {{ stage.dateDebut | date }} au {{ stage.dateFin | date }}</p>
+        <p><strong>Modalité :</strong> {{ stage.modalite }}</p>
+        <p><strong>Niveau recherché :</strong> {{ stage.niveau }}</p>
+        <p><strong>Compétences :</strong> {{ stage.competences }}</p>
+        <p><strong>Rémunération :</strong> {{ stage.remuneration }} €</p>
+        <p><strong>Lieu :</strong> {{ stage.adresse }}</p>
+        <p><strong>Avantages :</strong> {{ stage.autres }}</p>
+      </section>
+    </div>
+  
+    <div *ngIf="!stage">
+      <p>Chargement des détails du stage...</p>
+    </div>
+  </div>
+  
