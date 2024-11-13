@@ -8,9 +8,10 @@ import { LoginComponent } from './pages/employeur/login/login.component';
 import { AjouterStageComponent } from './pages/employeur/ajouter-stage/ajouter-stage.component';
 import { ModifierStageComponent } from './pages/employeur/modifier-stage/modifier-stage.component';
 import { ListeStagesComponent } from './pages/employeur/liste-stages/liste-stages.component';
+import { AccueilComponent } from './pages/accueil/accueil.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/accueil', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'inscription-employeur', component: EmployeurInscriptionComponent },
   { path: 'ajouter-stage', component: AjouterStageComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'liste-stages', component: ListeStagesComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'admin-home', component: AdminHomeComponent },
-  { path: '**', redirectTo: '/login' },
+  { path: 'accueil', component: AccueilComponent },
+  { path: '**', redirectTo: '/accueil' },
 ];
 
 @NgModule({
